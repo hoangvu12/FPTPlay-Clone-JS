@@ -4,6 +4,8 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const Cache = require("./Cache");
+
 const Route = require("./routers");
 
 app.use(cors());
@@ -15,5 +17,6 @@ app.use(express.static(__dirname + "/public"));
 Route(app);
 
 app.listen(PORT, () => {
+  Cache.execute();
   console.log("Listening at", PORT);
 });

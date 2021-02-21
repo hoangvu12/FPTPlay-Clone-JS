@@ -21,7 +21,7 @@ class Anime {
 
   static async search(keyword) {
     const endpoint = "search/vod/all";
-    const query = { query_str: keyword, per_page: 12, page: 1 };
+    const query = { query_str: keyword, per_page: 6, page: 1 };
 
     const URL = FPTPlay.getUrl(endpoint, query);
 
