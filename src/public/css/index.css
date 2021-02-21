@@ -1,0 +1,12 @@
+body {
+  background-color: #181818 !important;
+  font-family: "Roboto", sans-serif;
+}
+
+.spinner {
+  position: fixed;
+  z-index: 1031;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
