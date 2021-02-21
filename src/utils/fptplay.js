@@ -18,33 +18,6 @@ class FPTPlay {
 
     return `${this.api_url}${e}?${query}st=${s}&e=${o}&device=Chrome(version:84)`;
   }
-
-  static async getVideoSource({ id, episode = 1, quality = "auto_vip" }) {
-    episode = Number(episode - 1);
-
-    const endpoint = `stream/vod/${id}/${episode}/${quality}`;
-    const URL = this.getUrl(endpoint);
-
-    const request = await fetch(URL);
-
-    const data = await request.json();
-
-    const videoUrl = data.data.url;
-    return videoUrl;
-  }
-
-  static async search(keyword) {
-    const endpoint = "search/vod/all";
-    const query = { query_str: keyword, per_page: 10, page: 1 };
-
-    const URL = this.getUrl(endpoint, query);
-
-    const request = await fetch(URL);
-
-    const data = await request.json();
-
-    return data.result;
-  }
 }
 
 function first(e) {

@@ -18,9 +18,30 @@ class Anime {
 
     return data.videos_list;
   }
+
+  static async search(keyword) {
+    const endpoint = "search/vod/all";
+    const query = { query_str: keyword, per_page: 12, page: 1 };
+
+    const URL = FPTPlay.getUrl(endpoint, query);
+
+    const { data } = await axios.get(URL);
+
+    return data.result;
+  }
+
+  static async getVideoSource({ id, episode = 1, quality = "auto_vip" }) {
+    const endpoint = `stream/vod/${id}/${Number(episode) - 1}/${quality}`;
+    const URL = FPTPlay.getUrl(endpoint);
+
+    const { data } = await axios.get(URL);
+
+    const videoUrl = data.data.url;
+    return videoUrl;
+  }
 }
 
-function getAnimeURL({ type, per_page = 1, page = 1 }) {
+function getAnimeURL({ type, per_page = 12, page = 1 }) {
   if (!structureIds.hasOwnProperty(type)) {
     return "";
   }
