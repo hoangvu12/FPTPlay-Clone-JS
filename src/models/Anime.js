@@ -1,4 +1,5 @@
 const axios = require("axios");
+const cheerio = require("cheerio");
 const FPTPlay = require("../utils/fptplay");
 
 const structureIds = {
@@ -12,6 +13,32 @@ const structureIds = {
 };
 
 class Anime {
+  static async getSlides() {
+    const URL = "https://fptplay.vn/danh-muc/anime/5587c83b17dc1353a3624a22";
+
+    const { data } = await axios.get(URL);
+
+    const $ = cheerio.load(data);
+
+    let slides = [];
+
+    $(".slide-item").each((i, e) => {
+      const $slide = $(e);
+
+      const style = $slide.find("span").attr("style");
+      const name = $slide.find("h2").text().trim();
+      const duration = $slide.find("h3").text().trim();
+      const description = $slide.find("p").text().trim();
+      const id = $slide.find("span").data("ela");
+
+      const thumbnail = style.match(/\((.*?)\)/)[1].replace(/('|")/g, "");
+
+      slides.push({ thumbnail, name, duration, description, id });
+    });
+
+    return slides;
+  }
+
   static async getList(type) {
     const URL = getAnimeURL({ type });
     const { data } = await axios.get(URL);

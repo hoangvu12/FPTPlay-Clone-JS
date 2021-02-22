@@ -12,6 +12,10 @@ class Cache {
       "chinese",
     ];
 
+    const animeLists = animeTypes.map((type) => Anime.getList(type));
+
+    animeLists.push(Anime.getSlides());
+
     const [
       total,
       trending,
@@ -20,7 +24,8 @@ class Cache {
       scifi,
       romantic,
       chinese,
-    ] = await Promise.all(animeTypes.map((type) => Anime.getList(type)));
+      slides,
+    ] = await Promise.all(animeLists);
 
     this.anime = {
       total,
@@ -30,6 +35,7 @@ class Cache {
       scifi,
       romantic,
       chinese,
+      slides,
     };
 
     console.log("Cache executed");

@@ -22,6 +22,10 @@
       href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/css/themes/splide-skyblue.min.css"
+    />
     <link rel="stylesheet" href="/css/index.css" />
     <title>FPTPlay-Clone</title>
   </head>
@@ -30,12 +34,41 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-12 anime-slider"></div>
+        <div class="col-12 anime-slider">
+          <div class="splide my-4">
+            <div class="splide__track">
+              <ul class="splide__list">
+                <% anime.slides.forEach(slide => { %>
+                <li class="splide__slide">
+                  <div class="splide__slide__container text-white splide__item">
+                    <a href="/anime/watch/<%= slide.id %>">
+                      <img src="<%= slide.thumbnail %>" class="w-100" />
+                      <div class="anime-info w-100 w-100 p-4">
+                        <div class="anime-name fs-2"><%= slide.name %></div>
+                        <div class="anime-duration text-muted">
+                          <%= slide.duration %>
+                        </div>
+                        <div class="anime-description">
+                          <%= slide.description %>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </li>
+                <% }) %>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="row">
         <div class="col-12 anime-list">
-          <ul class="nav nav-pills my-4" id="pills-tab" role="tablist">
+          <ul
+            class="nav nav-pills justify-content-center my-4"
+            id="pills-tab"
+            role="tablist"
+          >
             <li class="nav-item">
               <a
                 class="nav-link active"
@@ -138,14 +171,14 @@
                   <% anime.total.forEach(anime => { %>
                   <div class="col-xxl-2 col-lg-3 col-sm-6 col-md-4 my-2">
                     <div class="card anime-item">
-                      <a href="/anime/watch/<%= anime.slug %>-<%= anime._id %>">
+                      <a href="/anime/watch/<%= anime._id %>">
                         <img
                           src="<%= anime.standing_thumb %>?w=278"
                           class="card-img-top"
                         />
                         <div class="card-body text-white">
                           <p class="card-text">
-                            <%= Utils.textAbstract(anime.title_vie, 20) %>
+                            <%= Utils.textAbstract(anime.title_vie, 25) %>
                           </p>
                         </div>
                       </a>
@@ -167,7 +200,7 @@
                   <% anime.trending.forEach(anime => { %>
                   <div class="col-xxl-2 col-lg-3 col-sm-6 col-md-4 my-2">
                     <div class="card anime-item">
-                      <a href="/anime/watch/<%= anime.slug %>-<%= anime._id %>">
+                      <a href="/anime/watch/<%= anime._id %>">
                         <img
                           src="<%= anime.standing_thumb %>?w=278"
                           class="card-img-top"
@@ -196,7 +229,7 @@
                   <% anime.winter2021.forEach(anime => { %>
                   <div class="col-xxl-2 col-lg-3 col-sm-6 col-md-4 my-2">
                     <div class="card anime-item">
-                      <a href="/anime/watch/<%= anime.slug %>-<%= anime._id %>">
+                      <a href="/anime/watch/<%= anime._id %>">
                         <img
                           src="<%= anime.standing_thumb %>?w=278"
                           class="card-img-top"
@@ -225,7 +258,7 @@
                   <% anime.action.forEach(anime => { %>
                   <div class="col-xxl-2 col-lg-3 col-sm-6 col-md-4 my-2">
                     <div class="card anime-item">
-                      <a href="/anime/watch/<%= anime.slug %>-<%= anime._id %>">
+                      <a href="/anime/watch/<%= anime._id %>">
                         <img
                           src="<%= anime.standing_thumb %>?w=278"
                           class="card-img-top"
@@ -254,7 +287,7 @@
                   <% anime.scifi.forEach(anime => { %>
                   <div class="col-xxl-2 col-lg-3 col-sm-6 col-md-4 my-2">
                     <div class="card anime-item">
-                      <a href="/anime/watch/<%= anime.slug %>-<%= anime._id %>">
+                      <a href="/anime/watch/<%= anime._id %>">
                         <img
                           src="<%= anime.standing_thumb %>?w=278"
                           class="card-img-top"
@@ -283,7 +316,7 @@
                   <% anime.romantic.forEach(anime => { %>
                   <div class="col-xxl-2 col-lg-3 col-sm-6 col-md-4 my-2">
                     <div class="card anime-item">
-                      <a href="/anime/watch/<%= anime.slug %>-<%= anime._id %>">
+                      <a href="/anime/watch/<%= anime._id %>">
                         <img
                           src="<%= anime.standing_thumb %>?w=278"
                           class="card-img-top"
@@ -312,7 +345,7 @@
                   <% anime.chinese.forEach(anime => { %>
                   <div class="col-xxl-2 col-lg-3 col-sm-6 col-md-4 my-2">
                     <div class="card anime-item">
-                      <a href="/anime/watch/<%= anime.slug %>-<%= anime._id %>">
+                      <a href="/anime/watch/<%= anime._id %>">
                         <img
                           src="<%= anime.standing_thumb %>?w=278"
                           class="card-img-top"
@@ -346,5 +379,13 @@
       integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+    <script>
+      new Splide(".splide", {
+        rewind: true,
+        autoplay: true,
+        lazyLoad: "nearby",
+      }).mount();
+    </script>
   </body>
 </html>
