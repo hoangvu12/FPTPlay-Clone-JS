@@ -12,33 +12,33 @@ class Cache {
       "chinese",
     ];
 
-    // const animeLists = animeTypes.map((type) => Anime.getList(type));
+    const animeLists = animeTypes.map((type) => Anime.getList(type));
 
-    // animeLists.push(Anime.getSlides());
+    animeLists.push(Anime.getSlides());
 
-    // const [
-    //   total,
-    //   trending,
-    //   winter2021,
-    //   action,
-    //   scifi,
-    //   romantic,
-    //   chinese,
-    //   slides,
-    // ] = await Promise.all(animeLists);
+    const [
+      total,
+      trending,
+      winter2021,
+      action,
+      scifi,
+      romantic,
+      chinese,
+      slides,
+    ] = await Promise.all(animeLists);
 
-    // this.anime = {
-    //   total,
-    //   trending,
-    //   winter2021,
-    //   action,
-    //   scifi,
-    //   romantic,
-    //   chinese,
-    //   slides,
-    // };
+    this.anime = {
+      total,
+      trending,
+      winter2021,
+      action,
+      scifi,
+      romantic,
+      chinese,
+      slides,
+    };
 
-    // console.log("Cache executed");
+    console.log("Cache executed");
   }
 
   static execute() {

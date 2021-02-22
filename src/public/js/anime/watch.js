@@ -16,20 +16,93 @@ let videoPlayer = videojs("player", {
   },
 });
 
-const videoSource =
-  "http://vod01-cdn.fptplay.net/ovod/_definst_/smil:mp4/encoded/20201207/anime_danet_attackontitan4_2020_ep01/30716154e897b6c3d91980a20f77faca.smil/playlist.m3u8?token=eyJoYXNoX3ZhbHVlIjogImM4YjY5N2MxY2ViMDI3MWNiYzRjMzdkNmQxNjM3YWFmIiwgInZpZGVvX2lkIjogIjVmY2I3YzUzMjA4OWJkMTM0NDdiMjhlMiIsICJzZXJ2ZXJfdGltZSI6IDE2MTM5NjY2NDksICJ2YWxpZF9taW51dGVzIjogNzIwfQ";
-
-videoPlayer.src({
-  src: videoSource,
-  type: "application/x-mpegURL",
-});
-videoPlayer.maxQualitySelector({
-  defaultQuality: 2,
+videoPlayer.hotkeys({
+  volumeStep: 0.1,
+  seekStep: 5,
+  enableModifiersForNumbers: false,
 });
 
-videojs.Hls.xhr.beforeRequest = function (options) {
+videojs.Vhs.xhr.beforeRequest = function (options) {
   let url = encodeURIComponent(options.uri);
   options.uri = `${BASE_URL}/api/v1/proxy/video/${url}`;
 
   return options;
 };
+
+class Player {
+  static init(animeId) {
+    this.animeId = animeId;
+  }
+
+  static load() {
+    const savedAnimeInfo = localStorage[this.animeId];
+
+    if (!savedAnimeInfo) {
+      return this.loadEpisode();
+    }
+
+    const animeInfo = JSON.parse(savedAnimeInfo);
+
+    animeInfo.date = Date.now();
+
+    localStorage[this.animeId] = JSON.stringify(animeInfo);
+
+    const recentEpisode = animeInfo.recent;
+    const time = animeInfo[recentEpisode].time;
+
+    this.loadEpisode(recentEpisode, time);
+  }
+
+  static async loadEpisode(episode = 0, time = 0) {
+    this.currentEpisode = episode;
+
+    if (episode < 0) episode = 0;
+
+    const chosenEpisode = await getEpisode(this.animeId, episode);
+
+    videoPlayer.src({
+      src: chosenEpisode.source,
+      type: "application/x-mpegURL",
+    });
+
+    videoPlayer.maxQualitySelector({
+      defaultQuality: 2,
+    });
+
+    videoPlayer.currentTime(time);
+  }
+
+  static nextEpisode() {
+    this.loadEpisode(this.currentEpisode + 1);
+  }
+
+  static previousEpisode() {
+    this.loadEpisode(this.currentEpisode - 1);
+  }
+}
+
+videoPlayer.on("timeupdate", function () {
+  const currentEpisode = Player.currentEpisode;
+  const animeId = Player.animeId;
+  const rawEpisodes = localStorage[Player.animeId] || "{}";
+  const episodes = JSON.parse(rawEpisodes);
+
+  const currentPlayTime = videoPlayer.currentTime();
+
+  episodes.recent = currentEpisode;
+  episodes[currentEpisode] = { time: currentPlayTime };
+
+  localStorage[animeId] = JSON.stringify(episodes);
+
+  // if (currentPlayTime >= player.duration) {
+  //   player.nextEpisode();
+  // }
+});
+
+async function getEpisode(animeId, episode) {
+  const URL = `${BASE_URL}/api/v1/anime/${animeId}/episode/${episode}`;
+
+  const { data } = await axios.get(URL);
+
+  return data;
+}

@@ -20,7 +20,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
     />
-
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
@@ -88,6 +87,7 @@
                   <button
                     type="button"
                     class="btn btn-secondary btn-lg w-75 w-sm-100 w-md-100 w-lg-100 w-xl-100 w-xxl-100"
+                    onclick="Player.loadEpisode('<%= episode._id %>')"
                   >
                     Tập <%= episode._id + 1 %>
                   </button>
@@ -207,6 +207,16 @@
       crossorigin="anonymous"
     ></script>
 
-    <!-- <script src="/js/anime/watch.js"></script> -->
+
+    <script src="/js/components/nextButton.js"></script>
+    <script src="/js/components/previousButton.js"></script>
+    <script src="/js/anime/watch.js"></script>
+    <script>
+      let animeId = "<%= anime._id %>";
+
+      
+      Player.init(animeId);
+      Player.load();
+    </script>
   </body>
 </html>

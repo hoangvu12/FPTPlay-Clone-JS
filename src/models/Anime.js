@@ -66,14 +66,15 @@ class Anime {
     return data.result;
   }
 
-  static async getVideoSource({ id, episode = 1, quality = "auto_vip" }) {
-    const endpoint = `stream/vod/${id}/${Number(episode) - 1}/${quality}`;
+  static async getVideoSource({ id, episode = 0, quality = "auto_vip" }) {
+    const endpoint = `stream/vod/${id}/${episode}/${quality}`;
     const URL = FPTPlay.getUrl(endpoint);
 
     const { data } = await axios.get(URL);
 
-    const videoUrl = data.data.url;
-    return videoUrl;
+    const response = data.data;
+
+    return response;
   }
 }
 
