@@ -33,7 +33,26 @@ function textAbstract(text, length) {
   return text + "...";
 }
 
+function isEmptyArray(array) {
+  return JSON.stringify(array) === "[]";
+}
+
+function isEmptyObject(object) {
+  return JSON.stringify(object) === "{}";
+}
+
+Object.defineProperty(Array.prototype, "chunk", {
+  value: function (chunkSize) {
+    var R = [];
+    for (var i = 0; i < this.length; i += chunkSize)
+      R.push(this.slice(i, i + chunkSize));
+    return R;
+  },
+});
+
 module.exports = {
   string_to_slug,
   textAbstract,
+  isEmptyArray,
+  isEmptyObject,
 };

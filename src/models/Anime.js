@@ -13,6 +13,15 @@ const structureIds = {
 };
 
 class Anime {
+  static async getInfo(id) {
+    const endpoint = `vod/${id}`;
+    const URL = FPTPlay.getUrl(endpoint);
+
+    const { data } = await axios.get(URL);
+
+    return data.result;
+  }
+
   static async getSlides() {
     const URL = "https://fptplay.vn/danh-muc/anime/5587c83b17dc1353a3624a22";
 
@@ -70,7 +79,7 @@ class Anime {
 
 function getAnimeURL({ type, per_page = 12, page = 1 }) {
   if (!structureIds.hasOwnProperty(type)) {
-    return "";
+    throw new Error("No structure id");
   }
 
   const endpoint = "vod";
