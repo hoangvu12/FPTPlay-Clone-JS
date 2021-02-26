@@ -6,13 +6,7 @@ class Anime {
   }
 
   static async watch(req, res) {
-    const animeInfo = await AnimeModel.getInfo(req.params.id);
-
-    animeInfo.episodes = animeInfo.episodes.filter(
-      (episode) => !episode.is_trailer
-    );
-
-    res.render("pages/anime/watch", { anime: animeInfo, Utils });
+    res.render("pages/anime/watch", { anime: { _id: req.params.id }, Utils });
   }
 }
 

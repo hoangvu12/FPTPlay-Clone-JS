@@ -46,141 +46,26 @@
             class="vjs-big-play-centered vjs-fluid"
             controls
             preload="auto"
-            autoplay
           >
           </video-js>
         </div>
       </div>
-      <div class="row">
+      <div class="row anime-episodes-chunk">
         <div class="title col-12 text-white fs-4 mb-4">Tập phim</div>
-        <ul class="nav nav-pills my-4" id="pills-tab" role="tablist">
-          <% anime.episodes.chunk(18).forEach((chunk, i) => { %>
-          <li class="nav-item episode-chunk col-lg-3 col-md-4 col-6 mb-3">
-            <a
-              class="nav-link <%= i === 0 && "active" %> btn btn-outline-orange btn-lg w-75 mx-auto"
-              id="pills-home-tab"
-              data-bs-toggle="pill"
-              href="#ep<%= chunk[0]._id + 1 %>to<%= chunk[chunk.length - 1]._id + 1 %>"
-              role="tab"
-              aria-controls="pills-home"
-              aria-selected="false"
-              >Tập <%= chunk[0]._id + 1 %> - Tập <%= chunk[chunk.length - 1]._id
-              + 1 %>
-            </a>
-          </li>
-          <% }) %>
-        </ul>
+        <ul class="nav nav-pills my-4" id="pills-tab" role="tablist"></ul>
       </div>
       <div class="row anime-episodes">
-        <div class="tab-content" id="pills-tabContent">
-          <% anime.episodes.chunk(18).forEach((chunk, i) => { %>
-          <div
-            class="tab-pane fade <%= i === 0 && "active show" %>"
-            id="ep<%= chunk[0]._id + 1 %>to<%= chunk[chunk.length - 1]._id + 1 %>"
-            role="tabpanel"
-            aria-labelledby="pills-profile-tab"
-          >
-            <div class="container-fluid">
-              <div class="row">
-                <% chunk.forEach(episode => { %>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center mb-3">
-                  <button
-                    type="button"
-                    class="btn btn-secondary btn-lg w-75 w-sm-100 w-md-100 w-lg-100 w-xl-100 w-xxl-100"
-                    onclick="Player.loadEpisode('<%= episode._id %>')"
-                  >
-                    Tập <%= episode._id + 1 %>
-                  </button>
-                </div>
-                <% }) %>
-              </div>
-            </div>
-          </div>
-          <% }) %>
-        </div>
+        <div class="tab-content" id="pills-tabContent"></div>
       </div>
       <div class="row anime-info h-xl-40 my-4">
         <div class="col-lg-9 col-12">
           <div class="container-fluid p-0">
-            <div class="row h-xl-50">
-              <div class="col-xl-2 col-12">
-                <img
-                  src="<%= anime.standing_thumb %>?w=282&mode=scale"
-                  class="anime-thumbnail h-100"
-                />
-              </div>
-              <div class="col-xl-10 col-12 px-xl-5">
-                <div class="anime-title anime-title-vie text-white fs-4">
-                  <%= anime.title_vie %>
-                </div>
-                <div class="anime-title anime-title_origin text-muted fs-5">
-                  <%= anime.title_origin %>
-                </div>
-                <div class="anime-description">
-                  <p class="description-title text-white fw-bold my-2">
-                    Nội dung
-                  </p>
-                  <p class="description-content text-muted">
-                    <%= Utils.textAbstract(anime.description, 337) %>
-                  </p>
-                </div>
-              </div>
-            </div>
+            <div class="row anime-info-container h-xl-50"></div>
           </div>
         </div>
-        <div class="col-lg-3 col-12">
-          <table class="table table-borderless text-white">
-            <tbody>
-              <tr class="anime-episodes">
-                <td class="text-white fw-bold">Số tập</td>
-                <td class="text-muted">
-                  <%= anime.episode_latest %>/<%= anime.episode_total %>
-                </td>
-              </tr>
-              <tr class="anime-duration">
-                <td class="text-white fw-bold">Thời lượng</td>
-                <td class="text-muted"><%= anime.avrg_duration %></td>
-              </tr>
-              <tr class="anime-nation">
-                <td class="text-white fw-bold">Quốc gia</td>
-                <td class="text-muted"><%= anime.nation %></td>
-              </tr>
-              <tr class="anime-type">
-                <td class="text-white fw-bold">Thể loại</td>
-                <td class="text-muted">
-                  <%= anime.list_structure_name.join(', ') %>
-                </td>
-              </tr>
-              <tr class="anime-release-date">
-                <td class="text-white fw-bold">Phát hành</td>
-                <td class="text-muted"><%= anime.movie_release_date %></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <div class="anime-info-table col-lg-3 col-12"></div>
       </div>
-      <% if (!Utils.isEmptyArray(anime.link_videos)) { %>
-      <div class="row anime-seasons">
-        <div class="title col-12 text-white fs-4 mb-4">Season khác</div>
-        <% anime.link_videos.forEach(anime => { %>
-        <div class="col-xxl-2 col-lg-3 col-sm-6 col-md-4 col-6 my-2">
-          <div class="card anime-item">
-            <a href="/anime/watch/<%= anime._id %>">
-              <img
-                src="<%= anime.standing_thumb %>?w=278"
-                class="card-img-top"
-              />
-              <div class="card-body text-white">
-                <p class="card-text">
-                  <%= Utils.textAbstract(anime.title_vie, 35) %>
-                </p>
-              </div>
-            </a>
-          </div>
-        </div>
-        <% }) %>
-      </div>
-      <% } %>
+      <div class="row anime-seasons"></div>
     </div>
 
     <script
@@ -207,7 +92,6 @@
       crossorigin="anonymous"
     ></script>
 
-
     <script src="/js/fptplay.js"></script>
     <script src="/js/models/Anime.js"></script>
     <script src="/js/utils/index.js"></script>
@@ -216,11 +100,160 @@
     <script src="/js/components/previousButton.js"></script>
     <script src="/js/anime/watch.js"></script>
     <script>
-      let animeId = "<%= anime._id %>";
+      (async () => {
+        let animeId = "<%= anime._id %>";
 
-      
-      Player.init(animeId);
-      Player.load();
+        const anime = await Anime.getInfo(animeId);
+
+        showEpisodes();
+        showInfo();
+        showSeasons();
+
+        function showEpisodes() {
+          const $episodeChunk = $(".anime-episodes-chunk ul");
+          const $episodesContainer = $(".anime-episodes .tab-content");
+
+          anime.episodes.chunk(18).forEach((chunk, i) => {
+            const minEpisode = chunk[0]._id + 1;
+            const maxEpisode = chunk[chunk.length - 1]._id + 1;
+
+            $episodesContainer.append(`
+              <div
+                class="tab-pane fade ${i === 0 && "active show"}"
+                id="ep${minEpisode}to${maxEpisode}"
+                role="tabpanel"
+                aria-labelledby="pills-profile-tab"
+              >
+                <div class="container-fluid">
+                  <div class="row">
+                    ${chunk
+                      .map((episode) => {
+                        return `<div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center mb-3">
+                          <button
+                            type="button"
+                            class="btn btn-secondary btn-lg w-75 w-sm-100 w-md-100 w-lg-100 w-xl-100 w-xxl-100"
+                            onclick="Player.loadEpisode('${episode._id}')"
+                          >
+                            Tập ${episode._id + 1}
+                          </button>
+                        </div>`;
+                      })
+                      .join("\n")}
+                  </div>
+                </div>
+              </div>
+            `);
+
+            $episodeChunk.append(`
+              <li class="nav-item episode-chunk col-lg-3 col-md-4 col-6 mb-3">
+                <a
+                  class="nav-link ${
+                    i === 0 && "active"
+                  } btn btn-outline-orange btn-lg w-75 mx-auto"
+                  id="pills-home-tab"
+                  data-bs-toggle="pill"
+                  href="#ep${minEpisode}to${maxEpisode}"
+                  role="tab"
+                  aria-controls="pills-home"
+                  aria-selected="false"
+                  >Tập ${minEpisode} - Tập ${maxEpisode}
+                </a>
+              </li>
+            `);
+          });
+        }
+        function showInfo() {
+          const $animeInfoLeft = $(".anime-info-container");
+          const $animeInfoRight = $(".anime-info-table");
+
+          $animeInfoLeft.append(`
+            <div class="col-xl-2 col-12">
+              <img
+                src="${anime.standing_thumb}?w=282&mode=scale"
+                class="anime-thumbnail h-100"
+              />
+            </div>
+            <div class="col-xl-10 col-12 px-xl-5">
+              <div class="anime-title anime-title-vie text-white fs-4">
+                ${anime.title_vie}
+              </div>
+              <div class="anime-title anime-title_origin text-muted fs-5">
+                ${anime.title_origin}
+              </div>
+              <div class="anime-description">
+                <p class="description-title text-white fw-bold my-2">
+                  Nội dung
+                </p>
+                <p class="description-content text-muted">
+                  ${textAbstract(anime.description, 337)}
+                </p>
+              </div>
+            </div>
+          `);
+
+          $animeInfoRight.append(`
+              <table class="table table-borderless text-white">
+              <tbody>
+                <tr class="anime-episodes">
+                  <td class="text-white fw-bold">Số tập</td>
+                  <td class="text-muted">
+                    ${anime.episode_latest}/${anime.episode_total}
+                  </td>
+                </tr>
+                <tr class="anime-duration">
+                  <td class="text-white fw-bold">Thời lượng</td>
+                  <td class="text-muted">${anime.avrg_duration}</td>
+                </tr>
+                <tr class="anime-nation">
+                  <td class="text-white fw-bold">Quốc gia</td>
+                  <td class="text-muted">${anime.nation}</td>
+                </tr>
+                <tr class="anime-type">
+                  <td class="text-white fw-bold">Thể loại</td>
+                  <td class="text-muted">
+                    ${anime.list_structure_name.join(", ")}
+                  </td>
+                </tr>
+                <tr class="anime-release-date">
+                  <td class="text-white fw-bold">Phát hành</td>
+                  <td class="text-muted">${anime.movie_release_date}</td>
+                </tr>
+              </tbody>
+            </table>
+          `);
+        }
+        function showSeasons() {
+          if (isEmptyArray(anime.link_videos)) return;
+
+          const $container = $(".anime-seasons");
+
+          $container.append(`
+           <div class="title col-12 text-white fs-4 mb-4">Season khác</div>
+            ${anime.link_videos
+              .map((anime) => {
+                return `<div class="col-xxl-2 col-lg-3 col-sm-6 col-md-4 col-6 my-2">
+                <div class="card anime-item">
+                  <a href="/anime/watch/<%= anime._id %>">
+                    <img
+                      src="${anime.standing_thumb}?w=278"
+                      class="card-img-top"
+                    />
+                    <div class="card-body text-white">
+                      <p class="card-text">
+                        ${textAbstract(anime.title_vie, 35)}
+                      </p>
+                    </div>
+                  </a>
+                </div>
+              </div>`;
+              })
+              .join("\n")}
+          `);
+        }
+
+        Player.init(animeId);
+        Player.load();
+      })();
     </script>
   </body>
 </html>
