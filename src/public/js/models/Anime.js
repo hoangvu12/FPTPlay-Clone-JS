@@ -15,6 +15,8 @@ class Anime {
 
     const { data } = await axios.get(URL);
 
+    data.result.episodes = data.result.episodes.filter(episode => !episode.is_trailer);
+    
     return data.result;
   }
 
