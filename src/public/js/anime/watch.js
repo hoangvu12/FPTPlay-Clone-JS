@@ -100,9 +100,10 @@ videoPlayer.on("timeupdate", function () {
 });
 
 async function getEpisode(animeId, episode) {
-  const URL = `${BASE_URL}/api/v1/anime/${animeId}/episode/${episode}`;
+  const data = await Anime.getVideoSource({
+    id: animeId,
+    episode,
+  });
 
-  const { data } = await axios.get(URL);
-
-  return data;
+  return { success: true, source: data.url, thumbnail: data.timeline_img };
 }
