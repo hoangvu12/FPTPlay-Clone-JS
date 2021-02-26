@@ -56,6 +56,7 @@ function getAnimeURL({ type, per_page = 12, page = 1 }) {
   const endpoint = "vod";
   const query = {
     structure_id: structureIds[type],
+    episode_update: "1",
     per_page,
     page,
   };

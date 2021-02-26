@@ -14,6 +14,13 @@ let videoPlayer = videojs("player", {
       fullscreenToggle: {},
     },
   },
+  html5: {
+    hls: {
+      overrideNative: true,
+    },
+    nativeAudioTracks: false,
+    nativeVideoTracks: false,
+  },
 });
 
 videoPlayer.hotkeys({
@@ -22,9 +29,13 @@ videoPlayer.hotkeys({
   enableModifiersForNumbers: false,
 });
 
-videojs.Vhs.xhr.beforeRequest = function (options) {
+videoPlayer.maxQualitySelector({
+  defaultQuality: 2,
+});
+
+videojs.Hls.xhr.beforeRequest = function (options) {
   let url = encodeURIComponent(options.uri);
-  options.uri = `${BASE_URL}/api/v1/proxy/video/${url}`;
+  options.uri = `https://896ddb328739.au.ngrok.io/api/v1/proxy/video/${url}`;
 
   return options;
 };
@@ -54,6 +65,8 @@ class Player {
   }
 
   static async loadEpisode(episode = 0, time = 0) {
+    refreshEpisodeButton(episode);
+
     this.currentEpisode = episode;
 
     if (episode < 0) episode = 0;
@@ -63,10 +76,6 @@ class Player {
     videoPlayer.src({
       src: chosenEpisode.source,
       type: "application/x-mpegURL",
-    });
-
-    videoPlayer.maxQualitySelector({
-      defaultQuality: 2,
     });
 
     videoPlayer.currentTime(time);
@@ -106,4 +115,35 @@ async function getEpisode(animeId, episode) {
   });
 
   return { success: true, source: data.url, thumbnail: data.timeline_img };
+}
+
+function refreshEpisodeButton(index) {
+  const activeButton = $(".btn.active");
+  const activeChunk = $(".tab-content active");
+  const button = $(`.btn[data-index="${index}"]`);
+  const chunks = $(".episode-chunk a");
+  let chunk;
+
+  chunks.each((i, e) => {
+    const from = Number($(e).data("from"));
+    const to = Number($(e).data("to"));
+    const episode = Number(index) + 1;
+
+    if (episode >= from && episode <= to) {
+      chunk = $(e);
+
+      return false;
+    }
+  });
+
+  if (activeButton) {
+    activeButton.removeClass("active");
+    activeChunk.removeClass("active show");
+  }
+
+  const id = chunk.attr("href");
+
+  $(".tab-content").find(id).addClass("active show");
+  chunk.addClass("active");
+  button.addClass("active");
 }

@@ -17,7 +17,7 @@
   border-color: #181818 !important;
 }
 
-.card-img-top {
+.card-img-top.thumbnail {
   width: 100%;
   height: 60vh;
   object-fit: cover;
@@ -34,7 +34,7 @@
 }
 
 .anime-item:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .anime-item:hover .card-text {
@@ -43,6 +43,14 @@
 
 .episode-chunk a {
   font-size: 1.1rem !important;
+}
+
+.episode-chunk .btn.active {
+  color: #fff !important;
+}
+
+.anime-episodes .btn.active {
+  color: #ff6500 !important;
 }
 
 @media (max-width: 1199px) {

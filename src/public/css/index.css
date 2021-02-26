@@ -12,7 +12,8 @@ body {
 }
 
 .btn-outline-orange:hover,
-.btn-outline-orange:focus {
+.btn-outline-orange:focus,
+.btn-outline-orange:active {
   color: #fff !important;
   background-color: #ff6400;
 }

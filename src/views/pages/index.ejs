@@ -22,10 +22,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/css/themes/splide-skyblue.min.css"
-    />
+    <link rel="stylesheet" href="/css/bootstrap-utils/opacity.css" />
     <link rel="stylesheet" href="/css/index.css" />
     <link rel="stylesheet" href="/css/anime.css" />
     <title>FPTPlay-Clone</title>
@@ -33,212 +30,9 @@
   <body>
     <%- include('../partials/header'); %>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-12 anime-slider">
-          <div class="splide my-4">
-            <div class="splide__track">
-              <ul class="splide__list">
-                <% anime.slides.forEach(slide => { %>
-                <li class="splide__slide">
-                  <div class="splide__slide__container text-white splide__item">
-                    <a href="/anime/watch/<%= slide.id %>">
-                      <img src="<%= slide.thumbnail %>" class="w-100" />
-                      <div class="anime-info w-100 w-100 p-4">
-                        <div class="anime-name fs-2"><%= slide.name %></div>
-                        <div class="anime-duration text-muted">
-                          <%= slide.duration %>
-                        </div>
-                        <div class="anime-description">
-                          <%= slide.description %>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </li>
-                <% }) %>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12 anime-list">
-          <ul
-            class="nav nav-pills justify-content-center my-4"
-            id="pills-tab"
-            role="tablist"
-          >
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                id="pills-home-tab"
-                data-bs-toggle="pill"
-                href="#anime-total"
-                role="tab"
-                aria-controls="pills-home"
-                aria-selected="false"
-                >Tất cả</a
-              >
-            </li>
-
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                id="pills-home-tab"
-                data-bs-toggle="pill"
-                href="#anime-trending"
-                role="tab"
-                aria-controls="pills-home"
-                aria-selected="false"
-                >Xu hướng</a
-              >
-            </li>
-
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                id="pills-home-tab"
-                data-bs-toggle="pill"
-                href="#anime-winter2021"
-                role="tab"
-                aria-controls="pills-home"
-                aria-selected="false"
-                >Mùa đông 2021</a
-              >
-            </li>
-
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                id="pills-home-tab"
-                data-bs-toggle="pill"
-                href="#anime-action"
-                role="tab"
-                aria-controls="pills-home"
-                aria-selected="false"
-                >Hành động</a
-              >
-            </li>
-
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                id="pills-home-tab"
-                data-bs-toggle="pill"
-                href="#anime-scifi"
-                role="tab"
-                aria-controls="pills-home"
-                aria-selected="false"
-                >Viễn tưởng</a
-              >
-            </li>
-
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                id="pills-home-tab"
-                data-bs-toggle="pill"
-                href="#anime-romantic"
-                role="tab"
-                aria-controls="pills-home"
-                aria-selected="false"
-                >Tình cảm</a
-              >
-            </li>
-
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                id="pills-home-tab"
-                data-bs-toggle="pill"
-                href="#anime-chinese"
-                role="tab"
-                aria-controls="pills-home"
-                aria-selected="false"
-                >Hoạt hình Trung Quốc</a
-              >
-            </li>
-          </ul>
-          <div class="tab-content" id="pills-tabContent">
-            <div
-              class="tab-pane fade show active"
-              id="anime-total"
-              role="tabpanel"
-            >
-              <div class="container">
-                <div class="row"></div>
-              </div>
-            </div>
-
-            <div
-              class="tab-pane fade"
-              id="anime-trending"
-              role="tabpanel"
-              aria-labelledby="pills-profile-tab"
-            >
-              <div class="container">
-                <div class="row"></div>
-              </div>
-            </div>
-
-            <div
-              class="tab-pane fade"
-              id="anime-winter2021"
-              role="tabpanel"
-              aria-labelledby="pills-profile-tab"
-            >
-              <div class="container">
-                <div class="row"></div>
-              </div>
-            </div>
-
-            <div
-              class="tab-pane fade"
-              id="anime-action"
-              role="tabpanel"
-              aria-labelledby="pills-profile-tab"
-            >
-              <div class="container">
-                <div class="row"></div>
-              </div>
-            </div>
-
-            <div
-              class="tab-pane fade"
-              id="anime-scifi"
-              role="tabpanel"
-              aria-labelledby="pills-profile-tab"
-            >
-              <div class="container">
-                <div class="row"></div>
-              </div>
-            </div>
-
-            <div
-              class="tab-pane fade"
-              id="anime-romantic"
-              role="tabpanel"
-              aria-labelledby="pills-profile-tab"
-            >
-              <div class="container">
-                <div class="row"></div>
-              </div>
-            </div>
-
-            <div
-              class="tab-pane fade"
-              id="anime-chinese"
-              role="tabpanel"
-              aria-labelledby="pills-profile-tab"
-            >
-              <div class="container">
-                <div class="row"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="container opacity-0">
+      <div class="row anime-recent">
+        <div class="col-12 title text-white fs-4 mt-3 mb-2">Xem gần đây</div>
       </div>
     </div>
 
@@ -254,60 +48,99 @@
       integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
-
     <script src="/js/fptplay.js"></script>
     <script src="/js/models/Anime.js"></script>
     <script src="/js/utils/index.js"></script>
-
     <script>
-      new Splide(".splide", {
-        rewind: true,
-        autoplay: true,
-        lazyLoad: "nearby",
-      }).mount();
+      function showResult(anime) {
+        return `
+          <div class="col-xxl-2 col-lg-2 col-sm-6 col-md-4 col-6 my-2">
+            <div class="card anime-item">
+              <a href="/anime/watch/${anime._id}">
+                <img
+                  src=${anime.standing_image || anime.standing_thumb}
+                  class="card-img-top"
+                />
+                <div class="card-body text-white">
+                  <p class="card-text">${textAbstract(anime.title_vie, 35)}</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        `;
+      }
 
       (async () => {
-        const structures = [
-          "trending",
-          "total",
-          "winter2021",
-          "action",
-          "scifi",
-          "romantic",
-          "chinese",
-        ];
+        const $container = $(".container");
 
-        const promiseAnimeList = structures.map((structure) =>
-          Anime.getList(structure)
-        );
+        const structures = {
+          list: {
+            structure_id: "560e368317dc1310a164d2c7",
+            structure_name: "Anime",
+          },
+          special: {
+            structure_id: "5e732aa12089bd0041850ac3",
+            structure_name: "Top anime đặc sắc",
+          },
+        };
 
-        const animeList = await Promise.all(promiseAnimeList);
+        for (const [key, value] of Object.entries(structures)) {
+          const list = await getList({ structure_id: value.structure_id });
 
-        animeList.forEach((list, index) => {
-          const selector = `#anime-${structures[index]} .row`;
-          const $container = $(selector);
+          $container.append(`
+            <div class="row anime-${key}">
+              <div class="col-12 title text-white fs-4 mt-3 mb-2">${
+                value.structure_name
+              }</div>
+              ${list.map((anime) => showResult(anime)).join("\n")}
+            </div>
+          `);
+        }
 
-          list.forEach((anime) => {
-            $container.append(`
-            <div class="col-xxl-2 col-lg-3 col-sm-6 col-md-4 my-2">
-              <div class="card anime-item">
-                <a href="/anime/watch/${anime._id}">
-                  <img
-                    src="${anime.standing_thumb}?w=278"
-                    class="card-img-top"
-                  />
-                  <div class="card-body text-white">
-                    <p class="card-text">
-                      ${textAbstract(anime.title_vie, 35)}
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </div>`);
-          });
-        });
+        async function getList({ structure_id, per_page = 12, page = 1 }) {
+          const endpoint = "highlight";
+          const query = {
+            structure_id,
+            per_page,
+            page,
+          };
+
+          const URL = FPTPlay.getUrl(endpoint, query);
+
+          const { data } = await axios.get(URL);
+
+          return data.result_list;
+        }
       })();
     </script>
+    <script>
+      (async () => {
+        $container = $(".anime-recent");
+
+        const recentAnime = Object.keys(localStorage)
+          .map(function (key) {
+            const savedAnimeInfo = JSON.parse(localStorage.getItem(key));
+            const anime = {
+              id: key,
+              date: savedAnimeInfo.date || 0,
+            };
+            return anime;
+          })
+          .sort((a, b) => b.date - a.date);
+
+        const animePromise = recentAnime.map((anime) =>
+          Anime.getInfo(anime.id)
+        );
+
+        const anime = await Promise.all(animePromise);
+
+        anime.forEach((anime) => {
+          $container.append(showResult(anime));
+        });
+
+        $(".container").fadeTo(1000, 1);
+      })();
+    </script>
+    <script></script>
   </body>
 </html>
